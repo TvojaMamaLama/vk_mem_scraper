@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
 
 
 class Group(models.Model):
@@ -13,7 +12,7 @@ class Group(models.Model):
     members_count = models.IntegerField('Group members count', blank=False)
     status = models.CharField('Status', max_length=500, blank=False)
     photo_200 = models.CharField('Link on avatar', blank=False, max_length=500)
-    subscribers = models.ManyToManyField(User, related_name='vk_groups')
+    subscribers = models.ManyToManyField('profiles.Person', related_name='vk_groups')
 
     def __str__(self):
         return self.name
@@ -21,7 +20,7 @@ class Group(models.Model):
 
 class Request(models.Model):
     """Request of user"""
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='requests')
+    user = models.ForeignKey('profiles.Person', on_delete=models.CASCADE, related_name='requests')
     date = models.DateTimeField('Date of request', default=timezone.now)
     group = models.ForeignKey(Group, on_delete=models.DO_NOTHING, related_name='requests')
 
