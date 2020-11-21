@@ -11,7 +11,7 @@ def save_group_info(request) -> (int, dict):
     try:
         Group.objects.get(screen_name=screen_name)
     except Group.DoesNotExist:
-        token = request.user.token # todo
+        token = request.user.vk_token
         group = get_group_info(group_ids=screen_name, token=token)
         if 'error' in group:
             return status.HTTP_400_BAD_REQUEST, {'error': group['error']['error_msg']}
