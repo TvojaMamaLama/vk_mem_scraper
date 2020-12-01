@@ -8,7 +8,7 @@ class Group(models.Model):
     name = models.CharField('Name', max_length=500, blank=False)
     screen_name = models.CharField('Name from link', blank=False, unique=True, max_length=200)
     is_closed = models.BooleanField('Closed', blank=False)
-    description = models.TextField('Description')
+    description = models.TextField('Description', blank=True)
     members_count = models.IntegerField('Group members count', blank=False)
     status = models.CharField('Status', max_length=500, blank=False)
     photo_200 = models.CharField('Link on avatar', blank=False, max_length=500)

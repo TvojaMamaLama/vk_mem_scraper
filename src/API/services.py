@@ -30,3 +30,9 @@ def get_group(screen_name: str) -> (int, dict):
         return status.HTTP_404_NOT_FOUND, {'message': 'group not found'}
     serializer = GroupSerializer(group)
     return status.HTTP_200_OK, serializer.data
+
+
+def get_list_group(request):
+    groups = Group.objects.filter(subscribers=request.user)
+    serializer = GroupSerializer(groups, many=True)
+    return status.HTTP_200_OK, serializer.data
